@@ -53,7 +53,8 @@ const CONCEPTS = [
   { id: 'active', icon: '🏄', label: 'Активно', sub: 'сёрф, дайвинг, байк, треккинг', g: 'linear-gradient(135deg,#4c8dff,#1f4fd1)' },
   { id: 'spa', icon: '💆', label: 'СПА и wellness', sub: 'массаж, йога, грязи', g: 'linear-gradient(135deg,#c79bf2,#7a4fc9)' },
   { id: 'kids', icon: '🧸', label: 'С детьми', sub: 'спокойное море, парки', g: 'linear-gradient(135deg,#ffd166,#f29e0c)' },
-  { id: 'city', icon: '🏙️', label: 'Города и шопинг', sub: 'мегаполисы, рынки, крыши', g: 'linear-gradient(135deg,#8e9aaf,#4a5568)' }
+  { id: 'city', icon: '🏙️', label: 'Города и шопинг', sub: 'мегаполисы, рынки, крыши', g: 'linear-gradient(135deg,#8e9aaf,#4a5568)' },
+  { id: 'vntrip', icon: '🧭', label: 'Путешествие по Вьетнаму', sub: 'Ханой, Ниньбинь, Сайгон + море в Нячанге', g: 'linear-gradient(135deg,#e2384d,#f2a516)', wide: 1 }
 ];
 const CNAME = Object.fromEntries(CONCEPTS.map(c => [c.id, c]));
 const SLIDERS = [
@@ -95,13 +96,13 @@ const PLACES = [
   { id: 'sapa', c: 'vn', name: 'Сапа', to: 'в Сапу', cost: 1, good: [3, 4, 5, 9, 10, 11], wet: 'зимой холодно и туман, летом дожди', tags: { mountains: 3, active: 2, seclusion: 1, sights: 1, chill: 1 },
     why: 'рисовые террасы и треккинг по деревням', eve: 'горячий котелок и камин',
     ideas: [I('треккинг по рисовым террасам Мыонг Хоа', 'active', 'mountains'), I('канатка на Фансипан — крыша Индокитая', 'mountains', 'sights'), I('травяные ванны красных дао', 'spa', 'chill'), I('ночной рынок Сапы', 'food')] },
-  { id: 'hn', c: 'vn', name: 'Ханой и Халонг', to: 'в Ханой', cost: 2, good: [3, 4, 5, 10, 11], wet: 'зимой до +15°, летом жара и ливни', tags: { sights: 3, city: 3, food: 3, islands: 2, party: 1 },
+  { id: 'hn', c: 'vn', name: 'Ханой и Халонг', to: 'в Ханой', cost: 2, good: [3, 4, 5, 10, 11], wet: 'зимой до +15°, летом жара и ливни', tags: { sights: 3, city: 3, food: 3, islands: 2, party: 1, vntrip: 3 },
     why: 'старый квартал, стритфуд и ночь на корабле в Халонге', eve: 'старый квартал и уличный фо',
     ideas: [I('старый квартал и Храм литературы', 'sights', 'city'), I('ночь на корабле в бухте Халонг', 'islands', 'sea', 'chill'), I('фо, бун ча и кофе с яйцом', 'food'), I('каяки и пещеры Халонга', 'active', 'islands'), I('пивная улица Та Хиен', 'party', 'city'), I('Нинь Бинь: лодки среди карстов', 'sights', 'seclusion')] },
-  { id: 'ha', c: 'vn', name: 'Хойан и Хюэ', to: 'в Хойан', cost: 1, good: [2, 3, 4, 5, 6, 7, 8], wet: 'октябрь–ноябрь: ливни и паводки', tags: { sights: 3, food: 3, sea: 2, chill: 1, city: 1, kids: 1 },
+  { id: 'ha', c: 'vn', name: 'Хойан и Хюэ', to: 'в Хойан', cost: 1, good: [2, 3, 4, 5, 6, 7, 8], wet: 'октябрь–ноябрь: ливни и паводки', tags: { sights: 3, food: 3, sea: 2, chill: 1, city: 1, kids: 1, vntrip: 2 },
     why: 'фонари старого Хойана и императорский Хюэ', eve: 'фонари старого Хойана',
     ideas: [I('старый город Хойан на рассвете', 'sights'), I('императорская цитадель Хюэ', 'sights'), I('као лау, бань ми и кулинарный класс', 'food'), I('пляж Ан Банг', 'sea', 'chill'), I('перевал Хайван на байке', 'active', 'mountains'), I('пошив одежды на заказ', 'city'), I('Мраморные горы и Ба На', 'sights', 'kids')] },
-  { id: 'nt', c: 'vn', name: 'Нячанг', to: 'в Нячанг', cost: 1, good: [1, 2, 3, 4, 5, 6, 7, 8, 9], wet: 'октябрь–декабрь: дожди и волны', tags: { sea: 3, islands: 2, chill: 2, party: 1, food: 2, kids: 3, spa: 3, active: 2, city: 2, sights: 1 },
+  { id: 'nt', c: 'vn', name: 'Нячанг', to: 'в Нячанг', cost: 1, good: [1, 2, 3, 4, 5, 6, 7, 8, 9], wet: 'октябрь–декабрь: дожди и волны', tags: { sea: 3, islands: 2, chill: 2, party: 1, food: 2, kids: 3, spa: 3, active: 2, city: 2, sights: 1, vntrip: 3 },
     why: 'наш дом: море, острова, грязи и всё под рукой', eve: 'прогулка по набережной и ужин с морепродуктами',
     ideas: [I('острова на лодке: снорклинг у Хон Мун', 'islands', 'active', 'sea'), I('пляж Бай Зай — длинный и пустой', 'sea', 'seclusion', 'chill'), I('грязевые ванны и горячие источники', 'spa', 'chill', 'kids'), I('морепродукты на причале и ночной рынок', 'food'), I('VinWonders: аквапарк и океанариум', 'kids'), I('башни Понагар и пагода Лонг Шон', 'sights'), I('бары на крыше с видом на бухту', 'party', 'city'), I('дайвинг у Хон Мун', 'active', 'islands'), I('водопады Ба Хо', 'mountains', 'active'), I('кофейни и рынок Чо Дам', 'food', 'city')] },
   { id: 'nvb', c: 'vn', name: 'Нинь Ван Бэй и Зоклет', to: 'в Нинь Ван Бэй', cost: 2, good: [1, 2, 3, 4, 5, 6, 7, 8, 9], wet: 'октябрь–декабрь: дожди', tags: { seclusion: 3, sea: 3, chill: 3, spa: 2, islands: 2, kids: 1 },
@@ -113,7 +114,7 @@ const PLACES = [
   { id: 'mn', c: 'vn', name: 'Муйне', to: 'в Муйне', cost: 1, good: [11, 12, 1, 2, 3, 4], wet: 'летом дожди', tags: { active: 3, sea: 2, chill: 1, seclusion: 1 },
     why: 'кайт-столица Вьетнама и дюны', eve: 'ужин у моря',
     ideas: [I('кайт-урок в сезон ветров', 'active', 'sea'), I('белые дюны на рассвете', 'seclusion', 'sights'), I('Ручей фей и рыбацкая деревня', 'sights'), I('морепродукты у моря', 'food')] },
-  { id: 'sg', c: 'vn', name: 'Сайгон и Меконг', to: 'в Сайгон', cost: 2, good: [12, 1, 2, 3, 4], wet: 'май–октябрь: тропические ливни', tags: { city: 3, food: 3, party: 2, sights: 2 },
+  { id: 'sg', c: 'vn', name: 'Сайгон и Меконг', to: 'в Сайгон', cost: 2, good: [12, 1, 2, 3, 4], wet: 'май–октябрь: тропические ливни', tags: { city: 3, food: 3, party: 2, sights: 2, vntrip: 3 },
     why: 'энергия мегаполиса, крыши и дельта Меконга', eve: 'крыши первого района',
     ideas: [I('стритфуд-тур по 4-му району', 'food'), I('дворец Независимости и тоннели Кучи', 'sights'), I('дельта Меконга на день', 'sights', 'seclusion'), I('бары и клубы Буй Вьен', 'party'), I('рынок Бен Тхань', 'city')] },
   { id: 'cd', c: 'vn', name: 'Кондао', to: 'на Кондао', cost: 2, good: [3, 4, 5, 6, 7, 8, 9], wet: 'октябрь–февраль: ветер и волны', tags: { seclusion: 3, sea: 3, islands: 2, chill: 2, active: 1 },
@@ -211,6 +212,7 @@ function stopsList() {
   const order = PLACES.map(p => p.id), cOrder = ['vn', 'kh', 'th', 'id'];
   let ids;
   if (S.places.length) ids = S.places.slice();
+  else if (S.concepts.includes('vntrip')) ids = ['hn', 'nt', 'sg'];
   else {
     const n = days() <= 6 ? 1 : days() <= 12 ? 2 : days() <= 20 ? 3 : days() <= 35 ? 3 : 4;
     const r = ranked(); ids = [];
@@ -220,6 +222,11 @@ function stopsList() {
       // не больше двух стран на поездку до 3 недель
       if (!countries.has(x.p.c) && countries.size >= (days() <= 21 ? 2 : 3)) continue;
       ids.push(x.p.id); countries.add(x.p.c);
+    }
+    // наша база — Нячанг: во вьетнамских маршрутах всегда заезжаем к нам (Нинь Ван Бэй — соседняя бухта)
+    if (!ids.includes('nt') && days() <= 21) {
+      if (ids.length === 1 && ids[0] === 'nvb') ids = ['nt'];
+      else if (ids.length >= 2 && ids.some(i => P[i].c === 'vn')) { let k = ids.length - 1; while (k > 0 && P[ids[k]].c !== 'vn') k--; ids[k] = 'nt'; }
     }
   }
   return ids.sort((a, b) => cOrder.indexOf(P[a].c) - cOrder.indexOf(P[b].c) || order.indexOf(a) - order.indexOf(b));
@@ -243,7 +250,7 @@ function budgetHint() {
 
 const STEPS = [
   { title: 'Какой отдых вам нужен?', hint: 'Выберите всё, что откликается — хоть 1, хоть 5. Из этого ИИ соберёт концепцию поездки.', render: () => `
-    <div class="ccards">${CONCEPTS.map(c => `<button type="button" class="ccard" data-g="concepts" data-v="${c.id}" aria-pressed="${S.concepts.includes(c.id)}" style="--cg:${c.g}"><span class="cc-ico">${c.icon}</span><b>${esc(c.label)}</b><small>${esc(c.sub)}</small><i class="cc-check" aria-hidden="true">✓</i></button>`).join('')}</div>
+    <div class="ccards">${CONCEPTS.map(c => `<button type="button" class="ccard" data-g="concepts" data-v="${c.id}" aria-pressed="${S.concepts.includes(c.id)}" style="--cg:${c.g}"${c.wide ? ' data-wide="1"' : ''}><span class="cc-ico">${c.icon}</span><b>${esc(c.label)}</b><small>${esc(c.sub)}</small><i class="cc-check" aria-hidden="true">✓</i></button>`).join('')}</div>
     <p class="err" data-err></p>`,
     valid: () => S.concepts.length ? '' : 'Выберите хотя бы одну карточку' },
   { title: 'Найдём ваш баланс', hint: 'Подвиньте ползунки — где вы между крайностями?', render: () => `
@@ -418,8 +425,75 @@ function title(stops) {
 }
 function planText() {
   const p = buildPlan(), L = ['Концепция: ' + conceptName().map(k => CNAME[k].label.replace(/\u00AD/g, '')).join(' · '), title(p.stops), ''];
-  p.lines.forEach(l => L.push(`${l.d}${l.s ? ' (' + l.s.replace(/^\S+ /, '') + ')' : ''}: ${l.t}`));
+  if (p.stops.length > 1 && !S.concepts.includes('vntrip')) p.lines.forEach(l => L.push(`${l.d}${l.s ? ' (' + l.s.replace(/^\S+ /, '') + ')' : ''}: ${l.t}`));
+  L.push('', programText());
   return L.join('\n');
+}
+
+
+/* ---------------- программы по дням (тизеры из programs.js) ---------------- */
+const PRG = window.TOUR_PROGRAMS || { themes: {} };
+const PTHEMES = Object.keys(PRG.themes || {});
+function programThemes() {
+  const w = profile();
+  let ids = S.concepts.filter(id => PRG.themes[id]);
+  if (!ids.length) ids = PTHEMES.slice().sort((a, b) => (w[b] || 0) - (w[a] || 0)).slice(0, 1);
+  return ids.map(id => ({ id, w: Math.max(0.2, w[id] || 0) })).sort((a, b) => b.w - a.w);
+}
+// смешиваем дни выбранных тем пропорционально весам (карточки + ползунки), с учётом бюджета, детей и длины
+const TRIP_PLACE = { dalat: 'dl', ninhvan: 'nvb', whale: 'nvb' };
+const groupLen = g => Math.max(0, ...PTHEMES.map(id => PRG.themes[id].days.filter(d => d.g === g).length));
+function mixDays(n, themes, usedKeys, noTrip) {
+  const out = [], used = usedKeys || new Set(), ptr = {}, taken = {}, t = tier();
+  let trip = null;
+  themes.forEach(x => { ptr[x.id] = 0; taken[x.id] = 0; });
+  const ok = (d, left) => !used.has(d.k) && !(S.kids && d.nk) && !(t === 'eco' && d.p3) && d.k !== 'last' &&
+    (!d.g || (!noTrip && !trip && n >= 5 && !stopsList().includes(TRIP_PLACE[d.g]) && left >= groupLen(d.g)));
+  while (out.length < n) {
+    const left = n - out.length;
+    let best = null, bestScore = -1, bestDay = null;
+    for (const x of themes) {
+      const days = PRG.themes[x.id].days;
+      while (ptr[x.id] < days.length && !ok(days[ptr[x.id]], left)) ptr[x.id]++;
+      if (ptr[x.id] >= days.length) continue;
+      const sc = x.w / (taken[x.id] + 1);
+      if (sc > bestScore) { bestScore = sc; best = x; bestDay = days[ptr[x.id]]; }
+    }
+    if (!best) { const f = FILLERS[out.length % FILLERS.length]; out.push({ h: 'Свободный день', x: f, icon: '🌤️' }); continue; }
+    const grp = bestDay.g ? PRG.themes[best.id].days.filter(d => d.g === bestDay.g) : [bestDay];
+    if (bestDay.g) trip = bestDay.g;
+    grp.forEach(d => { used.add(d.k); out.push(Object.assign({ icon: CNAME[best.id].icon, th: best.id }, d)); });
+    ptr[best.id] += grp.length; taken[best.id] += grp.length;
+  }
+  // поездки с ночёвкой — в конец, чтобы не скакать туда-обратно
+  const tripDays = out.filter(d => d.g), rest = out.filter(d => !d.g);
+  return rest.concat(tripDays);
+}
+function buildProgram() {
+  const themes = programThemes();
+  if (S.concepts.includes('vntrip') && PRG.vntrip) {
+    const r = PRG.vntrip.routes.find(x => days() <= x.upTo) || PRG.vntrip.routes[PRG.vntrip.routes.length - 1];
+    const extra = Math.max(0, Math.min(days(), 30) - r.days.length);
+    const ntN = r.days.filter(d => d.nt).length + extra;
+    const other = S.concepts.some(id => PRG.themes[id]) ? themes : [];
+    const ntDays = other.length ? mixDays(ntN, other, new Set(['arr']), true) : r.days.filter(d => d.nt).concat(Array.from({ length: extra }, () => ({ h: 'Ещё день у моря', x: 'пляж, острова, массаж — в своём ритме' })));
+    const list = []; let ins = false;
+    r.days.forEach(d => {
+      if (!d.nt) list.push(Object.assign({ icon: '🧭' }, d));
+      else if (!ins) { ins = true; ntDays.forEach(x => list.push(Object.assign({ icon: '🌊' }, x, { c: 'Нячанг' }))); }
+    });
+    return { title: PRG.vntrip.title + ' · ' + (extra ? days() + ' ' + plural(days(), 'день', 'дня', 'дней') : r.label), days: list, themes };
+  }
+  const stops = stopsList(), al = allocate(stops), ni = stops.indexOf('nt');
+  const n = Math.min(ni >= 0 ? al[ni] : days(), 30);
+  const list = mixDays(n, themes);
+  if (list.length) list[list.length - 1] = Object.assign({}, list[list.length - 1], { x: list[list.length - 1].x + (ni === stops.length - 1 || ni < 0 ? ' · вылет' : '') });
+  const names = themes.map(x => PRG.themes[x.id].title);
+  return { title: (ni >= 0 || stops.length === 1 ? 'Нячанг' : 'Если база — Нячанг') + ': ' + names.slice(0, 2).join(' + '), days: list, themes, part: ni >= 0 && stops.length > 1 };
+}
+function programText() {
+  const p = buildProgram();
+  return ['Набросок программы — ' + p.title].concat(p.days.map((d, i) => `День ${i + 1}${d.c ? ' (' + d.c + ')' : ''}: ${d.h} — ${d.x}`)).join('\n');
 }
 
 /* ---------------- ИИ-панель ---------------- */
@@ -434,6 +508,7 @@ function renderAI(immediate) {
     const w = profile(), dims = Object.entries(w).filter(x => x[1] > 0.15).sort((a, b) => b[1] - a[1]).slice(0, 5), mx = dims[0] ? dims[0][1] : 1;
     const r = ranked(), p = buildPlan(), est = estimate(), T = title(p.stops);
     const cn = conceptName();
+    const pg = buildProgram(), pgShow = pg.days.slice(0, 10), pgMore = pg.days.length - pgShow.length;
     const show = p.lines.length > 16 ? p.lines.slice(0, 12) : p.lines, more = p.lines.length - show.length;
     const tasks = [];
     HELP.filter(h => S.help.includes(h.id)).forEach(h => tasks.push(h.label));
@@ -449,14 +524,15 @@ function renderAI(immediate) {
       <div class="ai-tags">${tags.map(t => `<span>${esc(t)}</span>`).join('')}</div>
       <div class="ai-sec"><h5>Профиль отдыха</h5><div class="ai-bars">${dims.map(([k, v]) => `<div><span>${CNAME[k].icon} ${esc(CNAME[k].label)}</span><i style="--w:${Math.round(v / mx * 100)}%"></i></div>`).join('')}</div></div>
       <div class="ai-sec"><h5>Лучшие совпадения</h5><ul class="ai-match">${top3.map(x => `<li><b>${FLAG[x.p.c]} ${esc(x.p.name)}</b><span class="pct">${x.pct}%</span><small>${esc(x.p.why)}</small></li>`).join('')}</ul></div>
-      <div class="ai-sec"><h5>Маршрут-набросок${S.places.length ? '' : ' · рекомендация'}</h5><ul class="ai-days">${show.map(l => `<li><b>${esc(l.d)}</b>${l.s ? `<span class="muted-l small">${esc(l.s)} · </span>` : ''}${esc(l.t)}</li>`).join('')}${more > 0 ? `<li class="muted-l">…и ещё ${more} ${plural(more, 'день', 'дня', 'дней')} в полной версии</li>` : ''}</ul>${withUs}</div>
+      ${p.stops.length > 1 && !S.concepts.includes('vntrip') ? `<div class="ai-sec"><h5>Маршрут${S.places.length ? '' : ' · рекомендация'}</h5><div class="ai-route">${p.stops.map((st, i) => `<span>${FLAG[P[st].c]} ${esc(P[st].name)} <b>${p.alloc[i]} ${plural(p.alloc[i], 'день', 'дня', 'дней')}</b></span>`).join('<i>→</i>')}</div></div>` : ''}
+      <div class="ai-sec"><h5>Программа-набросок · ${esc(pg.title)}</h5><ul class="ai-days ai-prog">${pgShow.map((d, i) => `<li><b>День ${i + 1}</b>${d.c ? `<span class="muted-l small">${esc(d.c)} · </span>` : ''}${d.icon || ''} ${esc(d.h)}<small>${esc(d.x)}</small></li>`).join('')}${pgMore > 0 ? `<li class="muted-l">…и ещё ${pgMore} ${plural(pgMore, 'день', 'дня', 'дней')} — распишем в гайде</li>` : ''}</ul>${withUs}<p class="ai-note">📘 Это только набросок. После заявки обсудим всё вместе, а после оплаты напишем подробный гайд под вас: по дням, с адресами, таймингом и ценами.</p></div>
       ${bud.length ? `<div class="ai-sec"><h5>Бюджет</h5><ul class="ai-list">${bud.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
       ${tasks.length ? `<div class="ai-sec"><h5>Берём на себя</h5><ul class="ai-list">${tasks.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
       ${vis.length ? `<div class="ai-sec"><h5>Визы</h5><ul class="ai-list">${vis.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
       ${seas.length ? `<div class="ai-sec"><h5>Сезон</h5><ul class="ai-list">${seas.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
       ${S.dream.trim() ? `<div class="ai-sec"><h5>Ваша мечта</h5><p style="margin:0;font-style:italic">«${esc(S.dream.trim().slice(0, 220))}${S.dream.length > 220 ? '…' : ''}»</p></div>` : ''}
       ${pack ? `<div class="ai-est"><span>${pack.icon} ${esc(pack.label)}<small>ориентир за наши услуги, без жилья и билетов</small></span><b>от ${money(est.total)}</b></div>` : '<p class="ai-foot">Выберите формат поездки, и я посчитаю ориентир по цене.</p>'}
-      <p class="ai-foot">Черновик собран автоматически по вашим ответам. Точную программу мы составим вручную после созвона.</p>`;
+      <p class="ai-foot">Черновик собран автоматически по вашим ответам. Подробный гайд под вас пишем после обсуждения и оплаты.</p>`;
     const tEl = $('#aiTitle');
     if (T !== lastTitle && !immediate) typeText(tEl, T); else tEl.textContent = T;
     lastTitle = T;
@@ -617,10 +693,50 @@ function heroFx() {
   loop();
 }
 
+
+/* ---------------- «Примеры программ» на главной (только тизеры) ---------------- */
+let pgTheme = 'chill', pgLen = 0;
+function renderPrograms() {
+  const tabs = $('#pgTabs'), card = $('#pgCard'), flow = $('#pgFlow');
+  if (!tabs || !PRG.themes) return;
+  if (flow && PRG.flow) flow.innerHTML = PRG.flow.map((f, i) => `<div><span class="fl-i">${f.i}</span><b>${i + 1}. ${esc(f.t)}</b><small>${esc(f.s)}</small></div>`).join('<i class="fl-ar" aria-hidden="true">→</i>');
+  const ids = PTHEMES.concat(PRG.vntrip ? ['vntrip'] : []);
+  tabs.innerHTML = ids.map(id => `<button type="button" class="chip" role="tab" data-pg="${id}" aria-pressed="${id === pgTheme}">${CNAME[id].icon} ${esc(CNAME[id].label.replace(/\u00AD/g, ''))}</button>`).join('');
+  let title, lead, list, lens, cur;
+  if (pgTheme === 'vntrip') {
+    const R = PRG.vntrip.routes; lens = R.map((r, i) => [i, r.label]); cur = Math.min(pgLen, R.length - 1);
+    title = PRG.vntrip.title; lead = PRG.vntrip.lead; list = R[cur].days;
+  } else {
+    const T = PRG.themes[pgTheme]; lens = [[0, '3 дня'], [1, '5 дней'], [2, '7 дней']]; cur = Math.min(pgLen, 2);
+    title = T.title; lead = T.lead; list = T.days.slice(0, [3, 5, 7][cur]);
+  }
+  card.innerHTML = `<div class="pg-head"><div><h3>${CNAME[pgTheme].icon} ${esc(title)}</h3><p>${esc(lead)}</p></div>
+    <div class="pg-len" role="group" aria-label="Длительность">${lens.map(([i, l]) => `<button type="button" data-pglen="${i}" aria-pressed="${i === cur}">${l}</button>`).join('')}</div></div>
+    <ol class="pg-days">${list.map((d, i) => `<li><span class="pg-n">${i + 1}</span><div><b>${d.c ? `<em>${esc(d.c)}</em> ` : ''}${esc(d.h)}</b><small>${esc(d.x)}</small></div></li>`).join('')}</ol>
+    <div class="pg-foot"><p class="small">Это пример. Детали — адреса, тайминг, цены и что делаем мы — пишем в гайде под вас после обсуждения и оплаты.</p><a class="btn primary shine" href="#plan" data-pg-go="${pgTheme}">✨ Хочу похожий отдых</a></div>`;
+}
+function initPrograms() {
+  const sec = $('#programs'); if (!sec) return;
+  sec.addEventListener('click', e => {
+    const t = e.target.closest('[data-pg]'), l = e.target.closest('[data-pglen]'), g = e.target.closest('[data-pg-go]');
+    if (t) { pgTheme = t.dataset.pg; renderPrograms(); }
+    if (l) { pgLen = +l.dataset.pglen; renderPrograms(); }
+    if (g) {
+      const id = g.dataset.pgGo;
+      if (!S.concepts.includes(id)) S.concepts.push(id);
+      if (id === 'vntrip' || pgTheme === 'vntrip') S.nights = [6, 9, 13][Math.min(pgLen, 2)];
+      else S.nights = [2, 4, 6][Math.min(pgLen, 2)];
+      save(); step = 0; renderStep(); renderAI();
+    }
+  });
+  renderPrograms();
+}
+
 /* ---------------- init ---------------- */
 function init() {
   fillStatic();
   try { heroFx(); } catch (e) { console.warn(e); }
+  try { initPrograms(); } catch (e) { console.warn(e); }
   const form = $('#wzForm'); if (!form) return;
   form.addEventListener('click', onClick);
   form.addEventListener('input', onInput);
@@ -637,5 +753,5 @@ function init() {
   if (mbar && 'IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(x => mbar.classList.toggle('hide', x.isIntersecting)), { threshold: 0.05 }).observe($('#plan'));
 }
 document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
-window.__tours = { S: () => S, buildPlan, estimate, planText, ranked, stopsList };
+window.__tours = { S: () => S, set: o => { S = Object.assign(clone(DEF), o); }, tier, buildPlan, buildProgram, programText, estimate, planText, ranked, stopsList };
 })();

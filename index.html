@@ -15,13 +15,13 @@
 <link rel="preload" href="fonts/Unbounded.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" type="image/avif" imagesrcset="images/hero-m-800.avif 800w, images/hero-m-1200.avif 1200w" imagesizes="100vw" media="(max-width: 700px)">
 <link rel="preload" as="image" type="image/avif" imagesrcset="images/hero-960.avif 960w, images/hero-1600.avif 1600w, images/hero-2400.avif 2400w, images/hero-3200.avif 3200w" imagesizes="100vw" media="(min-width: 701px)">
-<link rel="stylesheet" href="styles.css?v=202611240420">
+<link rel="stylesheet" href="styles.css?v=202611240550">
 </head>
 <body>
 <header class="topbar" id="topbar">
   <a href="#top" class="logo"><span class="logo-mark" aria-hidden="true"><img src="favicon.svg" alt="" width="30" height="30"></span><span data-brand>Свои в Нячанге</span></a>
   <nav class="nav" aria-label="Разделы">
-    <a href="#how">Как это работает</a><a href="#packages">Пакеты и цены</a><a href="#destinations">Направления</a><a href="#about">О нас</a><a href="#faq">Вопросы</a>
+    <a href="#how">Как это работает</a><a href="#packages">Пакеты и цены</a><a href="#programs">Программы</a><a href="#destinations">Направления</a><a href="#about">О нас</a><a href="#faq">Вопросы</a>
   </nav>
   <a class="btn primary sm hdr-cta" href="#plan">✨ Собрать поездку</a>
 </header>
@@ -82,10 +82,10 @@
   <p class="kicker">Как это работает</p>
   <h2>4 шага от идеи до поездки</h2>
   <ol class="steps">
-    <li><span>1</span><h3>Концепция за 3 минуты</h3><p>Выбираете, какой отдых нужен: море, острова, горы, чилл или тусовки. ИИ подбирает места и набрасывает маршрут.</p></li>
-    <li><span>2</span><h3>Созваниваемся</h3><p>В течение <b data-hours>24</b> часов пишем в Telegram или WhatsApp, уточняем детали и называем точную цену.</p></li>
-    <li><span>3</span><h3>Подтверждаем и оплачиваете</h3><p>Только после согласования программы присылаем реквизиты. Заранее ничего платить не нужно.</p></li>
-    <li><span>4</span><h3>Гайд или поездка</h3><p>Получаете готовый план с адресами и маршрутами или едете вместе с нами: целиком или по нужным точкам.</p></li>
+    <li><span>1</span><h3>Заявка за 3 минуты</h3><p>Отмечаете, какой отдых нужен: море, острова, горы, чилл, тусовки или путешествие по стране. ИИ сразу показывает набросок программы.</p></li>
+    <li><span>2</span><h3>Обсуждаем всё</h3><p>В течение <b data-hours>24</b> часов пишем в Telegram или WhatsApp, созваниваемся, уточняем темп, бюджет, жильё и мечты, называем точную цену.</p></li>
+    <li><span>3</span><h3>Оплата и гайд под вас</h3><p>Реквизиты — только после согласования. После оплаты вместе с ИИ пишем подробный гайд: по дням, с адресами, таймингом и ценами.</p></li>
+    <li><span>4</span><h3>Едете</h3><p>Сами по гайду — или вместе с нами: целые дни или встречи в нужных точках.</p></li>
   </ol>
 </section>
 
@@ -153,8 +153,19 @@
   <p class="muted small">Цены — за нашу работу. Отели, аренда, билеты, госпошлины за визы и входные билеты оплачиваются отдельно, по факту и напрямую. <span data-group-note></span></p>
 </section>
 
+<!-- ============ ПРИМЕРЫ ПРОГРАММ ============ -->
+<section class="section soft" id="programs">
+  <p class="kicker">Примеры программ</p>
+  <h2>Какой может быть ваша поездка</h2>
+  <p class="sec-lead">Короткие примеры по темам — чтобы было от чего оттолкнуться. Вашу программу мы не берём из шаблона: сначала обсуждаем, потом пишем гайд под вас.</p>
+  <div class="pg-tabs" id="pgTabs" role="tablist" aria-label="Темы отдыха"></div>
+  <div class="pg-card" id="pgCard"></div>
+  <h3 class="h3gap">Как мы работаем</h3>
+  <div class="flow" id="pgFlow"></div>
+</section>
+
 <!-- ============ ПРИМЕР ДНЯ ============ -->
-<section class="section soft" id="day">
+<section class="section" id="day">
   <p class="kicker">Пример</p>
   <h2>Как выглядит день с нами в Нячанге</h2>
   <div class="daygrid">
@@ -311,7 +322,8 @@
   <a class="btn primary grow" href="#plan">✨ Собрать поездку</a>
 </div>
 
-<script src="config.js?v=202611240420"></script>
-<script src="app.js?v=202611240420"></script>
+<script src="config.js?v=202611240550"></script>
+<script src="programs.js?v=202611240550"></script>
+<script src="app.js?v=202611240550"></script>
 </body>
 </html>
