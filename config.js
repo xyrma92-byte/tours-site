@@ -14,7 +14,7 @@ window.SITE_CONFIG = {
   telegram: "https://t.me/+79643426967",  // лучше указать @username: https://t.me/username
   whatsapp: "https://wa.me/79643426967",  // сайт сам добавит ?text=… с текстом заявки
   instagram: "https://instagram.com/niks.taran",   // Instagram Никиты
-  instagramWife: "",                               // Instagram Иры — вставьте ссылку; пусто = ссылка скрыта
+  instagramWife: "https://instagram.com/irina_noskova_design", // Instagram Иры; пусто = ссылка скрыта
   siteUrl: "https://xyrma92-byte.github.io/tours-site",                            // адрес сайта после выбора домена (для документов)
   responseHours: 24,                      // «ответим в течение N часов»
 

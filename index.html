@@ -7,13 +7,15 @@
 <meta name="description" content="Мы живём в Нячанге и помогаем с поездкой по Вьетнаму, Таиланду, Бали и Камбодже: персональный план с адресами или поездка вместе с нами. Жильё, байк, машина, наличные, e-visa.">
 <meta property="og:title" content="Вьетнам — как у своих. Поездка вместе с нами из Нячанга">
 <meta property="og:description" content="Персональный план поездки или сопровождение: жильё, аренда, наличные, визы, где поесть и купаться.">
-<meta property="og:image" content="images/nhatrang-bay.jpg">
+<meta property="og:image" content="https://xyrma92-byte.github.io/tours-site/images/og-hero.jpg">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0c3b46">
 <link rel="preload" href="fonts/Manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/Unbounded.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=202611230443">
+<link rel="preload" as="image" type="image/avif" imagesrcset="images/hero-m-800.avif 800w, images/hero-m-1200.avif 1200w" imagesizes="100vw" media="(max-width: 700px)">
+<link rel="preload" as="image" type="image/avif" imagesrcset="images/hero-960.avif 960w, images/hero-1600.avif 1600w, images/hero-2400.avif 2400w, images/hero-3200.avif 3200w" imagesizes="100vw" media="(min-width: 701px)">
+<link rel="stylesheet" href="styles.css?v=202611240420">
 </head>
 <body>
 <header class="topbar" id="topbar">
@@ -26,26 +28,37 @@
 
 <main id="top">
 <!-- ============ HERO ============ -->
-<section class="hero">
-  <picture class="hero-bg">
-    <source srcset="images/nhatrang-bay-800.webp 800w, images/nhatrang-bay.webp 1600w" sizes="100vw" type="image/webp">
-    <img src="images/nhatrang-bay.jpg" alt="Бухта Нячанга: лодки, горы и город" fetchpriority="high">
-  </picture>
+<section class="hero" id="hero">
+  <div class="hero-media" id="heroMedia">
+    <picture class="hero-bg">
+      <source media="(max-width: 700px)" type="image/avif" srcset="images/hero-m-800.avif 800w, images/hero-m-1200.avif 1200w" sizes="100vw">
+      <source media="(max-width: 700px)" type="image/webp" srcset="images/hero-m-800.webp 800w, images/hero-m-1200.webp 1200w" sizes="100vw">
+      <source type="image/avif" srcset="images/hero-960.avif 960w, images/hero-1600.avif 1600w, images/hero-2400.avif 2400w, images/hero-3200.avif 3200w" sizes="100vw">
+      <source type="image/webp" srcset="images/hero-960.webp 960w, images/hero-1600.webp 1600w, images/hero-2400.webp 2400w, images/hero-3200.webp 3200w" sizes="100vw">
+      <img src="images/hero-1600.jpg" alt="Бирюзовая лагуна и белый пляж острова Хон Ной в бухте Нячанга" width="1600" height="1067" fetchpriority="high" decoding="async">
+    </picture>
+    <div class="hero-shimmer" aria-hidden="true"></div>
+  </div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <canvas class="hero-bokeh" id="heroBokeh" aria-hidden="true"></canvas>
   <div class="hero-in">
-    <p class="eyebrow">🌴 Живём в Нячанге · говорим по-русски</p>
-    <h1>Вьетнам — как&nbsp;у&nbsp;своих</h1>
-    <p class="lead">Соберём вашу поездку под вас или поедем вместе. Жильё, байк, машина, наличные, e-visa, где поесть и где купаться — всё решаем мы, а вы отдыхаете.</p>
-    <div class="cta-row">
-      <a class="btn primary big" href="#plan">✨ Собрать поездку с ИИ</a>
-      <a class="btn glass big" href="#packages">Пакеты и цены</a>
+    <div class="hero-card">
+      <p class="eyebrow"><span class="dot"></span> Живём в Нячанге · говорим по-русски</p>
+      <h1>Вьетнам —<br><span class="h1-grad">как у своих</span></h1>
+      <p class="lead">Поймём, какой отдых вам нужен, и соберём поездку под вас — или поедем вместе. Жильё, байк, наличные, e-visa, где поесть и где купаться — на нас.</p>
+      <div class="cta-row">
+        <a class="btn primary big shine" href="#plan">✨ Подобрать отдых с ИИ</a>
+        <a class="btn glass big" href="#packages">Пакеты и цены</a>
+      </div>
     </div>
     <ul class="hero-points">
       <li><b>2 формата</b>гайд с адресами или поездка с нами</li>
       <li><b>4 страны</b>Вьетнам + Таиланд, Бали, Камбоджа</li>
       <li><b>Без суеты</b>брони, аренда, обмен, SIM</li>
-      <li><b>Под вас</b>семья, пара, зимовка, разведка</li>
+      <li><b>Под вас</b>море, горы, чилл или тусовки</li>
     </ul>
   </div>
+  <p class="hero-credit">Остров Хон Ной, бухта Нячанга · фото: Minh Duc Ly (public domain)</p>
 </section>
 
 <!-- ============ ЧТО РЕШАЕМ ============ -->
@@ -69,7 +82,7 @@
   <p class="kicker">Как это работает</p>
   <h2>4 шага от идеи до поездки</h2>
   <ol class="steps">
-    <li><span>1</span><h3>Анкета за 3 минуты</h3><p>Отмечаете, куда, когда и с кем. ИИ-черновик сразу показывает, какой может быть поездка.</p></li>
+    <li><span>1</span><h3>Концепция за 3 минуты</h3><p>Выбираете, какой отдых нужен: море, острова, горы, чилл или тусовки. ИИ подбирает места и набрасывает маршрут.</p></li>
     <li><span>2</span><h3>Созваниваемся</h3><p>В течение <b data-hours>24</b> часов пишем в Telegram или WhatsApp, уточняем детали и называем точную цену.</p></li>
     <li><span>3</span><h3>Подтверждаем и оплачиваете</h3><p>Только после согласования программы присылаем реквизиты. Заранее ничего платить не нужно.</p></li>
     <li><span>4</span><h3>Гайд или поездка</h3><p>Получаете готовый план с адресами и маршрутами или едете вместе с нами: целиком или по нужным точкам.</p></li>
@@ -212,11 +225,11 @@
 <!-- ============ АНКЕТА ============ -->
 <section class="section plan" id="plan">
   <p class="kicker">✨ ИИ-анкета</p>
-  <h2>Соберём вашу поездку</h2>
+  <h2>Какой отдых вам нужен?</h2>
   <p class="muted">Отвечайте по шагам, а ИИ-черновик будет меняться вместе с вашими ответами. Это ни к чему не обязывает: точную программу и цену обсудим лично.</p>
   <div class="wizard" id="wizard">
     <form class="wz-form" id="wzForm" novalidate autocomplete="on">
-      <div class="wz-progress"><div class="wz-bar"><i id="wzBar"></i></div><span id="wzStepLbl">Шаг 1 из 8</span></div>
+      <div class="wz-progress"><div class="wz-bar"><i id="wzBar"></i></div><span id="wzStepLbl">Шаг 1 из 9</span></div>
       <div id="wzSteps"></div>
       <div class="wz-nav">
         <button type="button" class="btn ghost" id="wzBack">← Назад</button>
@@ -289,7 +302,7 @@
     </nav>
   </div>
   <p class="credits small">Мы не являемся туроператором или турагентом, не продаём туристский продукт и не оказываем услуги лицензированного гида. Цены на сайте — ориентиры «от», не публичная оферта. <span data-operator></span><br>
-  Фото: Wikimedia Commons — Bùi Thụy Đào Nguyên (CC BY-SA 3.0), Kevin King (CC BY 2.0), Tuong Lam Photos (CC BY-SA 4.0), Shyamal (CC BY-SA 4.0), Diego Delso (CC BY-SA 3.0), Philip Nalangan (CC BY 4.0), Reinhard Onasch (CC BY-SA 3.0).</p>
+  Фото: Wikimedia Commons — Minh Duc Ly (public domain, обработка), Kevin King (CC BY 2.0), Tuong Lam Photos (CC BY-SA 4.0), Shyamal (CC BY-SA 4.0), Diego Delso (CC BY-SA 3.0), Philip Nalangan (CC BY 4.0), Reinhard Onasch (CC BY-SA 3.0).</p>
 </footer>
 
 <div class="mbar" id="mbar">
@@ -298,7 +311,7 @@
   <a class="btn primary grow" href="#plan">✨ Собрать поездку</a>
 </div>
 
-<script src="config.js?v=202611230443"></script>
-<script src="app.js?v=202611230443"></script>
+<script src="config.js?v=202611240420"></script>
+<script src="app.js?v=202611240420"></script>
 </body>
 </html>
