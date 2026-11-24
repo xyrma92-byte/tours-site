@@ -80,6 +80,19 @@ const PACKS = [
   { id: 'partial', icon: '📍', label: 'Тур с нами — частично', sub: 'Встречаемся в нужных точках и привозим вас туда' },
   { id: 'full', icon: '🧭', label: 'Тур с нами — полностью', sub: 'Целые дни вместе, вся логистика на нас' }
 ];
+// пакет «Освоиться во Вьетнаме» (без гайда) — тексты и цены в config.js → starter
+const STARTER = CFG.starter || { tiers: [] };
+const STIER = Object.fromEntries((STARTER.tiers || []).map(t => [t.id, t]));
+(STARTER.tiers || []).forEach(t => PACKS.push({ id: t.id, icon: t.icon, label: `Освоиться: «${t.title}»`, sub: (t.id === 'start' ? 'виза, SIM, деньги, байк, встреча' : 'всё из «Старт» + банк, жильё, приложения, город, 14 дней чата') + ' — без гайда' }));
+const isStarter = () => !!STIER[S.pack];
+const starterRange = t => `≈ ${money(t.from)}–${money(t.to).replace(CUR, '')}`;
+function starterChecklist() {
+  const t = STIER[S.pack]; if (!t) return [];
+  let items = t.items.slice();
+  if (t.id === 'startplus') { items = STIER.start.items.concat(items.filter(x => !/^Всё из/.test(x))); if (!S.kids) items = items.filter(x => !/^Для семей/.test(x)); }
+  return items;
+}
+function prepayPct() { const pay = CFG.payment || {}; return S.pack === 'guide' ? (pay.guidePrepayPercent ?? 100) : isStarter() ? (pay.starterPrepayPercent ?? 50) : (pay.tourPrepayPercent ?? 30); }
 const CITIZEN = [{ id: 'ru', label: 'Россия' }, { id: 'by', label: 'Беларусь' }, { id: 'kz', label: 'Казахстан' }, { id: 'other', label: 'Другое' }];
 const DREAMS = ['Хотим море без волн и тихий район для детей', 'Ищем квартиру на 2 месяца недалеко от моря', 'Мечтаем встретить рассвет у Ангкор-Вата', 'Хочу прокатиться на байке по горам', 'Первый раз в Азии, немного страшно'];
 const COUNTRIES = { vn: '🇻🇳 Вьетнам', th: '🇹🇭 Таиланд', id: '🇮🇩 Бали', kh: '🇰🇭 Камбоджа' };
@@ -251,8 +264,9 @@ function budgetHint() {
 const STEPS = [
   { title: 'Какой отдых вам нужен?', hint: 'Выберите всё, что откликается — хоть 1, хоть 5. Из этого ИИ соберёт концепцию поездки.', render: () => `
     <div class="ccards">${CONCEPTS.map(c => `<button type="button" class="ccard" data-g="concepts" data-v="${c.id}" aria-pressed="${S.concepts.includes(c.id)}" style="--cg:${c.g}"${c.wide ? ' data-wide="1"' : ''}><span class="cc-ico">${c.icon}</span><b>${esc(c.label)}</b><small>${esc(c.sub)}</small><i class="cc-check" aria-hidden="true">✓</i></button>`).join('')}</div>
+    ${STARTER.tiers && STARTER.tiers.length ? `<button type="button" class="starter-jump" data-starter-jump><span>🧳</span><span><b>Переезжаете или надолго?</b><small>Можно без программы — только помощь устроиться: «${esc(STARTER.title || 'Освоиться')}»</small></span><i>→</i></button>` : ''}
     <p class="err" data-err></p>`,
-    valid: () => S.concepts.length ? '' : 'Выберите хотя бы одну карточку' },
+    valid: () => S.concepts.length || isStarter() ? '' : 'Выберите хотя бы одну карточку — или пакет «Освоиться» ниже' },
   { title: 'Найдём ваш баланс', hint: 'Подвиньте ползунки — где вы между крайностями?', render: () => `
     ${SLIDERS.map(s => `<div class="bal"><div class="bal-l"><span>${s.l}</span><span>${s.r}</span></div><input type="range" min="0" max="100" step="5" data-bal="${s.id}" value="${S.bal[s.id]}" aria-label="${esc(s.l + ' — ' + s.r)}" style="--v:${S.bal[s.id]}%"></div>`).join('')}
     <fieldset class="q" style="margin-top:18px"><legend>Формат</legend><div class="opts two">${FORMATS.map(f => opt('format', f, S.format === f.id)).join('')}</div></fieldset>` },
@@ -271,10 +285,11 @@ const STEPS = [
   { title: 'Куда? ИИ уже подобрал', hint: 'Отмечены места с лучшим совпадением с вашей концепцией. Можно оставить как есть, выбрать свои или ничего — тогда возьмём рекомендации.', render: renderPlaces },
   { title: 'С чем помочь?', hint: 'Всё, что отметите, возьмём на себя или распишем в гайде.', render: () => `
     <div class="chips">${HELP.map(h => chip('help', h, S.help.includes(h.id))).join('')}</div>` },
-  { title: 'Как поедем?', hint: 'Сами по нашему гайду или вместе с нами.', render: () => {
+  { title: 'Как поедем?', hint: 'Сами по нашему гайду, вместе с нами — или только помощь устроиться.', render: () => {
     const PR = CFG.prices || {};
-    return `<div class="opts">${PACKS.map(p => opt('pack', p, S.pack === p.id, PR[p.id] ? 'от ' + money(PR[p.id].from) + (p.id === 'guide' ? '' : '/день') : '')).join('')}</div><p class="err" data-err></p>
-    <div class="q" id="daysQ" ${S.pack && S.pack !== 'guide' ? '' : 'hidden'} style="margin-top:16px"><span class="ql">Сколько дней с нами?</span>${stepper('daysWithUs', 1, 30)}<p class="muted small" id="daysHint"></p></div>
+    return `<div class="opts">${PACKS.map(p => opt('pack', p, S.pack === p.id, STIER[p.id] ? starterRange(STIER[p.id]) : PR[p.id] ? 'от ' + money(PR[p.id].from) + (p.id === 'guide' ? '' : '/день') : '')).join('')}</div>
+    ${isStarter() ? `<p class="muted small" style="margin:8px 0 0">💡 «${esc(STIER[S.pack].title)}» — ${esc(STARTER.priceLabel || 'ориентировочная цена')} ${starterRange(STIER[S.pack])} ${esc(STIER[S.pack].unit)}. Без гайда и программы по дням.</p>` : ''}<p class="err" data-err></p>
+    <div class="q" id="daysQ" ${S.pack && S.pack !== 'guide' && !isStarter() ? '' : 'hidden'} style="margin-top:16px"><span class="ql">Сколько дней с нами?</span>${stepper('daysWithUs', 1, 30)}<p class="muted small" id="daysHint"></p></div>
     <fieldset class="q" style="margin-top:12px"><legend>Дополнительно</legend><div class="chips">${(CFG.addons || []).map(a => chip('addons', { id: a.id, label: (ADDON_ICON[a.id] || '') + ' ' + a.title + (a.price ? ' · ' + money(a.price) : ' · бесплатно') }, S.addons.includes(a.id))).join('')}</div></fieldset>`; },
     valid: () => S.pack ? '' : 'Выберите формат поездки' },
   { title: 'Расскажите о поездке мечты', hint: 'Своими словами: что важно, чего боитесь, что точно хотите увидеть.', render: () => `
@@ -303,7 +318,7 @@ function stopsListAuto() { const keep = S.places; S.places = []; const r = stops
 
 function renderContact() {
   const pay = CFG.payment || {}, est = estimate();
-  const pp = S.pack === 'guide' ? (pay.guidePrepayPercent ?? 100) : (pay.tourPrepayPercent ?? 30);
+  const pp = prepayPct();
   const methods = (pay.methods || []).filter(m => !(m.id === 'cash' && S.pack === 'guide'));
   return `
   <label class="f"><span>Ваше имя</span><input type="text" data-k="name" value="${esc(S.name)}" autocomplete="name" placeholder="Анна"></label>
@@ -312,7 +327,7 @@ function renderContact() {
   <label class="f"><span>Email <span class="muted small">(необязательно)</span></span><input type="email" data-k="email" value="${esc(S.email)}" autocomplete="email" placeholder="you@mail.ru"></label></div>
   <div class="pay">
     <h4>💳 Оплата: сейчас платить не нужно</h4>
-    <p>Сначала мы свяжемся в течение ${CFG.responseHours || 24} ч, согласуем программу и точную цену. ${S.pack === 'guide' ? `Гайд оплачивается после согласования (${pp}%), готовый план пришлём в течение 2–4 дней.` : `Для брони дат — предоплата ${pp}%, остаток на месте.`} Отели, аренда и билеты оплачиваются отдельно, напрямую.</p>
+    <p>Сначала мы свяжемся в течение ${CFG.responseHours || 24} ч, согласуем программу и точную цену. ${S.pack === 'guide' ? `Гайд оплачивается после согласования (${pp}%), готовый план пришлём в течение 2–4 дней.` : isStarter() ? `«${esc(STIER[S.pack].title)}»: ${pp}% после согласования, остаток — по прилёте.` : `Для брони дат — предоплата ${pp}%, остаток на месте.`} Отели, аренда и билеты оплачиваются отдельно, напрямую.</p>
     <span class="ql small" style="font-weight:800">Как вам удобнее оплатить?</span>
     <div class="pm">${methods.map(m => `<label><input type="radio" name="pm" data-k="payMethod" value="${m.id}" ${S.payMethod === m.id ? 'checked' : ''}><span>${esc(m.title)}<small>${m.details ? esc(m.details) : m.id === 'sbp' && pay.bankDetails ? 'реквизиты появятся после отправки заявки' : 'реквизиты пришлём после подтверждения'}</small></span></label>`).join('')}</div>
     ${pay.payLinkUrl ? `<p style="margin-top:10px"><a class="btn ghost" href="${esc(pay.payLinkUrl)}" target="_blank" rel="noopener">Оплатить по ссылке (после согласования)</a></p>` : ''}
@@ -384,7 +399,9 @@ function estimate() {
   const PR = CFG.prices || {}, items = [];
   let total = 0, max = 0;
   if (!S.pack) return { total: 0, items };
+  const covered = isStarter() ? ((STARTER.covers || {})[S.pack] || []) : [];
   if (S.pack === 'guide') { const g = guidePrice(); total += g; max += g; items.push(['Персональный гайд', g]); }
+  else if (isStarter()) { const t = STIER[S.pack]; total += t.from; max += t.to; items.push([`${STARTER.title}: «${t.title}» (${STARTER.priceLabel || 'ориентировочно'})`, t.from]); }
   else {
     const p = PR[S.pack] || { from: 0, to: 0 }, d = S.daysWithUs;
     const extra = Math.max(0, people() - (CFG.groupIncluded || 4)) * (CFG.extraPersonPerDay || 0);
@@ -392,7 +409,7 @@ function estimate() {
     items.push([`${S.pack === 'full' ? 'Полное' : 'Частичное'} сопровождение, ${d} ${plural(d, 'день', 'дня', 'дней')}`, (p.from + extra) * d]);
     items.push(['Гайд по всей поездке', 0]);
   }
-  (CFG.addons || []).filter(a => S.addons.includes(a.id)).forEach(a => { const v = a.id === 'visa' ? a.price * people() : a.price; total += v; max += v; items.push([a.title, v]); });
+  (CFG.addons || []).filter(a => S.addons.includes(a.id) && !covered.includes(a.id)).forEach(a => { const v = a.id === 'visa' ? a.price * people() : a.price; total += v; max += v; items.push([a.title, v]); });
   return { total, max: Math.max(max, total), items };
 }
 function seasonNotes(stops) {
@@ -424,9 +441,11 @@ function title(stops) {
   return `${len}: ${names.join(' → ')} для ${who}`;
 }
 function planText() {
+  if (isStarter() && !S.concepts.length) return [`${STARTER.title}: «${STIER[S.pack].title}» — без гайда и программы по дням`, `Срок: ${nightsLabel(S.nights)}`, '', 'Чек-лист первых дней:', ...starterChecklist().map(x => '☐ ' + x)].join('\n');
   const p = buildPlan(), L = ['Концепция: ' + conceptName().map(k => CNAME[k].label.replace(/\u00AD/g, '')).join(' · '), title(p.stops), ''];
-  if (p.stops.length > 1 && !S.concepts.includes('vntrip')) p.lines.forEach(l => L.push(`${l.d}${l.s ? ' (' + l.s.replace(/^\S+ /, '') + ')' : ''}: ${l.t}`));
-  L.push('', programText());
+  if (!isStarter() && p.stops.length > 1 && !S.concepts.includes('vntrip')) p.lines.forEach(l => L.push(`${l.d}${l.s ? ' (' + l.s.replace(/^\S+ /, '') + ')' : ''}: ${l.t}`));
+  if (isStarter()) L.push('', `Пакет «${STARTER.title}: ${STIER[S.pack].title}» — чек-лист первых дней:`, ...starterChecklist().map(x => '☐ ' + x));
+  else L.push('', programText());
   return L.join('\n');
 }
 
@@ -504,9 +523,10 @@ function renderAI(immediate) {
   panel.classList.add('thinking'); status.textContent = 'думает…';
   aiTimer = setTimeout(() => {
     panel.classList.remove('thinking');
-    if (!S.concepts.length && step === 0) { body.innerHTML = '<p class="ai-empty">Выберите, какой отдых вам нужен — море, острова, горы, тусовки или уединение. Я сразу соберу концепцию, подберу места во Вьетнаме, Таиланде, на Бали и в Камбодже и набросаю маршрут.</p>'; status.textContent = 'ждёт ваших ответов'; return; }
+    if (!S.concepts.length && step === 0 && !isStarter()) { body.innerHTML = '<p class="ai-empty">Выберите, какой отдых вам нужен — море, острова, горы, тусовки или уединение. Я сразу соберу концепцию, подберу места во Вьетнаме, Таиланде, на Бали и в Камбодже и набросаю маршрут.</p>'; status.textContent = 'ждёт ваших ответов'; return; }
     const w = profile(), dims = Object.entries(w).filter(x => x[1] > 0.15).sort((a, b) => b[1] - a[1]).slice(0, 5), mx = dims[0] ? dims[0][1] : 1;
-    const r = ranked(), p = buildPlan(), est = estimate(), T = title(p.stops);
+    const r = ranked(), p = buildPlan(), est = estimate(), st = isStarter(), noTrip = st && !S.concepts.length;
+    const T = st ? `${STARTER.title}: «${STIER[S.pack].title}» ${S.kids ? 'для семьи' : S.adults === 1 ? 'для одного' : 'для ' + S.adults + ' взрослых'}` : title(p.stops);
     const cn = conceptName();
     const pg = buildProgram(), pgShow = pg.days.slice(0, 10), pgMore = pg.days.length - pgShow.length;
     const show = p.lines.length > 16 ? p.lines.slice(0, 12) : p.lines, more = p.lines.length - show.length;
@@ -514,29 +534,30 @@ function renderAI(immediate) {
     HELP.filter(h => S.help.includes(h.id)).forEach(h => tasks.push(h.label));
     (CFG.addons || []).filter(a => S.addons.includes(a.id) && !HELP.some(h => h.addon === a.id && S.help.includes(h.id))).forEach(a => tasks.push((ADDON_ICON[a.id] || '') + ' ' + a.title));
     const pack = PACKS.find(x => x.id === S.pack);
-    const seas = seasonNotes(p.stops), vis = visaNotes(p.stops), bud = budgetNotes(p.stops);
+    const seas = noTrip ? [] : seasonNotes(p.stops), vis = visaNotes(noTrip ? ['nt'] : p.stops), bud = noTrip ? [] : budgetNotes(p.stops);
     const top3 = r.slice(0, 4);
-    const tags = [nightsLabel(S.nights), `${S.adults} взр.${S.kids ? ' + ' + S.kids + ' дет.' : ''}`, money(S.budget) + (S.budgetPer === 'person' ? '/чел.' : ''), TIER[tier()], S.startDate ? new Date(S.startDate).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + (S.flexible ? ' ±' : '') : ''].filter(Boolean);
+    const tags = [nightsLabel(S.nights), `${S.adults} взр.${S.kids ? ' + ' + S.kids + ' дет.' : ''}`, noTrip ? '' : money(S.budget) + (S.budgetPer === 'person' ? '/чел.' : ''), noTrip ? '' : TIER[tier()], S.startDate ? new Date(S.startDate).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) + (S.flexible ? ' ±' : '') : ''].filter(Boolean);
     const withUs = S.pack && S.pack !== 'guide' ? `<p class="small" style="margin:8px 0 0;color:#bfe5e7">👥 ${S.pack === 'full' ? 'Целые дни вместе' : 'Встречаемся в ключевых точках'}: ${S.daysWithUs} ${plural(S.daysWithUs, 'день', 'дня', 'дней')}.</p>` : '';
+    const progHtml = st ? `<div class="ai-sec"><h5>Первые дни: чек-лист · «${esc(STIER[S.pack].title)}»</h5><ul class="ai-check">${starterChecklist().map(x => `<li>${esc(x)}</li>`).join('')}</ul><p class="ai-note">🧳 Без гайда и программы по дням: помогаем устроиться — виза, связь, деньги, транспорт${S.pack === 'startplus' ? ', жильё и быт' : ''}. Порядок и даты согласуем после заявки.</p></div>` : `<div class="ai-sec"><h5>Программа-набросок · ${esc(pg.title)}</h5><ul class="ai-days ai-prog">${pgShow.map((d, i) => `<li><b>День ${i + 1}</b>${d.c ? `<span class="muted-l small">${esc(d.c)} · </span>` : ''}${d.icon || ''} ${esc(d.h)}<small>${esc(d.x)}</small></li>`).join('')}${pgMore > 0 ? `<li class="muted-l">…и ещё ${pgMore} ${plural(pgMore, 'день', 'дня', 'дней')} — распишем в гайде</li>` : ''}</ul>${withUs}<p class="ai-note">📘 Это только набросок. После заявки обсудим всё вместе, а после оплаты напишем подробный гайд под вас: по дням, с адресами, таймингом и ценами.</p></div>`;
     body.innerHTML = `
-      <div class="ai-concept">${cn.map(k => `<span>${CNAME[k].icon} ${esc(CNAME[k].label)}</span>`).join('<i>+</i>')}</div>
+      <div class="ai-concept">${noTrip ? `<span>🧳 ${esc(STARTER.title)}</span>` : cn.map(k => `<span>${CNAME[k].icon} ${esc(CNAME[k].label)}</span>`).join('<i>+</i>')}</div>
       <div class="ai-title" id="aiTitle"></div>
       <div class="ai-tags">${tags.map(t => `<span>${esc(t)}</span>`).join('')}</div>
-      <div class="ai-sec"><h5>Профиль отдыха</h5><div class="ai-bars">${dims.map(([k, v]) => `<div><span>${CNAME[k].icon} ${esc(CNAME[k].label)}</span><i style="--w:${Math.round(v / mx * 100)}%"></i></div>`).join('')}</div></div>
-      <div class="ai-sec"><h5>Лучшие совпадения</h5><ul class="ai-match">${top3.map(x => `<li><b>${FLAG[x.p.c]} ${esc(x.p.name)}</b><span class="pct">${x.pct}%</span><small>${esc(x.p.why)}</small></li>`).join('')}</ul></div>
-      ${p.stops.length > 1 && !S.concepts.includes('vntrip') ? `<div class="ai-sec"><h5>Маршрут${S.places.length ? '' : ' · рекомендация'}</h5><div class="ai-route">${p.stops.map((st, i) => `<span>${FLAG[P[st].c]} ${esc(P[st].name)} <b>${p.alloc[i]} ${plural(p.alloc[i], 'день', 'дня', 'дней')}</b></span>`).join('<i>→</i>')}</div></div>` : ''}
-      <div class="ai-sec"><h5>Программа-набросок · ${esc(pg.title)}</h5><ul class="ai-days ai-prog">${pgShow.map((d, i) => `<li><b>День ${i + 1}</b>${d.c ? `<span class="muted-l small">${esc(d.c)} · </span>` : ''}${d.icon || ''} ${esc(d.h)}<small>${esc(d.x)}</small></li>`).join('')}${pgMore > 0 ? `<li class="muted-l">…и ещё ${pgMore} ${plural(pgMore, 'день', 'дня', 'дней')} — распишем в гайде</li>` : ''}</ul>${withUs}<p class="ai-note">📘 Это только набросок. После заявки обсудим всё вместе, а после оплаты напишем подробный гайд под вас: по дням, с адресами, таймингом и ценами.</p></div>
+      ${noTrip ? '' : `<div class="ai-sec"><h5>Профиль отдыха</h5><div class="ai-bars">${dims.map(([k, v]) => `<div><span>${CNAME[k].icon} ${esc(CNAME[k].label)}</span><i style="--w:${Math.round(v / mx * 100)}%"></i></div>`).join('')}</div></div>
+      <div class="ai-sec"><h5>Лучшие совпадения</h5><ul class="ai-match">${top3.map(x => `<li><b>${FLAG[x.p.c]} ${esc(x.p.name)}</b><span class="pct">${x.pct}%</span><small>${esc(x.p.why)}</small></li>`).join('')}</ul></div>`}
+      ${!noTrip && p.stops.length > 1 && !S.concepts.includes('vntrip') ? `<div class="ai-sec"><h5>Маршрут${S.places.length ? '' : ' · рекомендация'}</h5><div class="ai-route">${p.stops.map((st, i) => `<span>${FLAG[P[st].c]} ${esc(P[st].name)} <b>${p.alloc[i]} ${plural(p.alloc[i], 'день', 'дня', 'дней')}</b></span>`).join('<i>→</i>')}</div></div>` : ''}
+      ${progHtml}
       ${bud.length ? `<div class="ai-sec"><h5>Бюджет</h5><ul class="ai-list">${bud.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
       ${tasks.length ? `<div class="ai-sec"><h5>Берём на себя</h5><ul class="ai-list">${tasks.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
       ${vis.length ? `<div class="ai-sec"><h5>Визы</h5><ul class="ai-list">${vis.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
       ${seas.length ? `<div class="ai-sec"><h5>Сезон</h5><ul class="ai-list">${seas.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}
       ${S.dream.trim() ? `<div class="ai-sec"><h5>Ваша мечта</h5><p style="margin:0;font-style:italic">«${esc(S.dream.trim().slice(0, 220))}${S.dream.length > 220 ? '…' : ''}»</p></div>` : ''}
-      ${pack ? `<div class="ai-est"><span>${pack.icon} ${esc(pack.label)}<small>ориентир за наши услуги, без жилья и билетов</small></span><b>от ${money(est.total)}</b></div>` : '<p class="ai-foot">Выберите формат поездки, и я посчитаю ориентир по цене.</p>'}
+      ${pack ? `<div class="ai-est"><span>${pack.icon} ${esc(pack.label)}<small>${st ? esc(STARTER.priceLabel || 'ориентировочная цена') + ', госпошлины, аренда и такси — отдельно' : 'ориентир за наши услуги, без жилья и билетов'}</small></span><b>${st ? starterRange({ from: est.total, to: est.max }) : 'от ' + money(est.total)}</b></div>` : '<p class="ai-foot">Выберите формат поездки, и я посчитаю ориентир по цене.</p>'}
       <p class="ai-foot">Черновик собран автоматически по вашим ответам. Подробный гайд под вас пишем после обсуждения и оплаты.</p>`;
     const tEl = $('#aiTitle');
     if (T !== lastTitle && !immediate) typeText(tEl, T); else tEl.textContent = T;
     lastTitle = T;
-    status.textContent = matchMedia('(min-width:1000px)').matches ? 'обновлён только что' : cn.map(k => CNAME[k].label).join(' · ') + ' — ' + T;
+    status.textContent = matchMedia('(min-width:1000px)').matches ? 'обновлён только что' : noTrip ? T : cn.map(k => CNAME[k].label).join(' · ') + ' — ' + T;
   }, immediate ? 0 : 380);
 }
 function typeText(el, txt) {
@@ -569,6 +590,7 @@ function go(d) {
   if (Math.abs(scrollY - top) > 200) scrollTo({ top, behavior: 'smooth' });
 }
 function onClick(e) {
+  if (e.target.closest('[data-starter-jump]')) { if (!isStarter()) S.pack = 'start'; save(); step = STEPS.findIndex(x => x.title === 'Как поедем?'); renderStep(); renderAI(); return; }
   if (e.target.closest('[data-clear-places]')) { S.places = []; save(); renderStep(); renderAI(); return; }
   const b = e.target.closest('[data-g]');
   if (b) {
@@ -609,14 +631,14 @@ function onInput(e) {
 function orderText(o) {
   const L = [`Заявка ${o.id} — ${CFG.companyName || ''}`, ''];
   L.push(`Имя: ${S.name}`, `Связь: ${({ telegram: 'Telegram', whatsapp: 'WhatsApp', call: 'Звонок' })[S.messenger]} ${S.contact}${S.email ? ', ' + S.email : ''}`);
-  L.push(`Концепция: ${S.concepts.map(c => CNAME[c].label.replace(/\u00AD/g, '')).join(', ')}`);
+  L.push(`Концепция: ${S.concepts.map(c => CNAME[c].label.replace(/\u00AD/g, '')).join(', ') || (isStarter() ? 'только «' + STARTER.title + '»' : '—')}`);
   L.push(`Баланс: активность ${S.bal.act}%, тусовки ${S.bal.party}%, города/места ${S.bal.city}%`);
   L.push(`Бюджет без перелёта: ${money(S.budget)} ${S.budgetPer === 'person' ? 'на человека' : 'на всех'} (≈ ${money(perPersonDay())}/чел./день, ${TIER[tier()]})`);
   L.push(`Даты: ${S.startDate || 'не указаны'}${S.flexible ? ' (гибко)' : ''}, ${nightsLabel(S.nights)}, формат: ${(FORMATS.find(f => f.id === S.format) || {}).label}`);
   L.push(`Кто: ${S.adults} взр.${S.kids ? ', ' + S.kids + ' дет. ' + S.kidsAges : ''}; гражданство: ${(CITIZEN.find(c => c.id === S.citizenship) || {}).label}`);
   L.push(`Места: ${S.places.length ? S.places.map(p => P[p].name).join(', ') : 'рекомендация ИИ — ' + stopsList().map(p => P[p].name).join(', ')}`);
   L.push(`Помощь: ${S.help.map(i => (HELP.find(x => x.id === i) || {}).label).join(', ') || '—'}`);
-  L.push(`Пакет: ${(PACKS.find(p => p.id === S.pack) || {}).label}${S.pack !== 'guide' ? ', дней с нами: ' + S.daysWithUs : ''}`);
+  L.push(`Пакет: ${(PACKS.find(p => p.id === S.pack) || {}).label}${isStarter() ? ' (без гайда), ' + (STARTER.priceLabel || 'ориентировочно') + ' ' + starterRange(STIER[S.pack]) : S.pack !== 'guide' ? ', дней с нами: ' + S.daysWithUs : ''}`);
   L.push(`Доп.: ${(CFG.addons || []).filter(a => S.addons.includes(a.id)).map(a => a.title).join(', ') || '—'}`);
   L.push(`Оплата: ${((get(CFG, 'payment.methods') || []).find(m => m.id === S.payMethod) || {}).title || 'обсудим'}; ориентир: от ${money(o.estimate.total)}`);
   if (S.dream.trim()) L.push('', 'Мечта: ' + S.dream.trim());
@@ -626,7 +648,7 @@ function orderText(o) {
 function bankBlock(id, est) {
   const pay = CFG.payment || {}, b = pay.bankDetails;
   if (!b || !(b.account || b.cardNumber) || (S.payMethod && S.payMethod !== 'sbp')) return '';
-  const pp = S.pack === 'guide' ? (pay.guidePrepayPercent ?? 100) : (pay.tourPrepayPercent ?? 30);
+  const pp = prepayPct();
   const rows = [['Получатель', b.recipient], ['Номер карты', b.cardNumber], ['Счёт', b.account], ['Банк', b.bank], ['БИК', b.bik], ['Корр. счёт', b.corrAccount], ['ИНН банка', b.bankInn], ['КПП банка', b.bankKpp], ['Назначение', (b.purpose || '').replace('{id}', id)]].filter(r => r[1]);
   return `<div class="bank"><h4>💳 Реквизиты для оплаты</h4>
     <p class="small" style="margin:0"><b>Переводите только после того, как мы согласуем с вами программу и сумму.</b> Предоплата — ${pp}%${est.total ? ', ориентир ≈ ' + money(est.total * pp / 100) : ''}; точную сумму пришлём в сообщении.</p>
@@ -732,11 +754,53 @@ function initPrograms() {
   renderPrograms();
 }
 
+
+/* ---------------- «Освоиться во Вьетнаме» на главной ---------------- */
+function renderStarter() {
+  const box = $('#starterCards'); if (!box || !STARTER.tiers) return;
+  $('#starterLead') && ($('#starterLead').textContent = STARTER.lead || '');
+  box.innerHTML = STARTER.tiers.map(t => `<article class="pack st-card${t.hot ? ' hot' : ''}">${t.hot ? '<span class="ribbon">Для переезда</span>' : ''}
+    <div class="pack-top"><span class="pack-ico">${t.icon}</span><h3>«${esc(t.title)}»</h3><p class="pack-sub">${esc(t.sub || '')}</p></div>
+    <p class="price"><b>${starterRange(t)}</b> <small>${esc(t.unit || '')}</small></p>
+    <p class="st-label">${esc(STARTER.priceLabel || 'ориентировочная цена')}</p>
+    <ul class="ticks">${t.items.map(x => `<li${/^Всё из/.test(x) ? ' class="st-all"' : ''}>${esc(x)}</li>`).join('')}</ul>
+    <a class="btn ${t.hot ? 'primary' : 'ghost'}" href="#plan" data-pick="${t.id}">Выбрать «${esc(t.title)}»</a></article>`).join('');
+}
+/* ---------------- Видео «Нячанг с нами» (слоты из config.js → videos) ---------------- */
+function renderVideos() {
+  const sec = $('#videos'), grid = $('#videoGrid'); if (!sec || !grid) return;
+  const V = (CFG.videos || []).filter(v => v && (v.src || v.url));
+  if (!V.length && CFG.videosPlaceholder === false) { sec.hidden = true; return; }
+  sec.hidden = false;
+  if (!V.length) {
+    const ph = ['🏝️ Острова', '🛵 Байк и горы', '🍜 Рынки и еда'];
+    grid.innerHTML = ph.map(t => `<div class="vslot ph"><div class="vph"><span class="vplay" aria-hidden="true">▶</span><b>${t}</b><small>скоро здесь наш ролик</small></div></div>`).join('');
+    $('#videoNote') && ($('#videoNote').hidden = false);
+    return;
+  }
+  $('#videoNote') && ($('#videoNote').hidden = true);
+  grid.innerHTML = V.map((v, i) => {
+    const cap = v.title ? `<figcaption>${esc(v.title)}</figcaption>` : '';
+    if (v.type === 'instagram' || /instagram\.com/.test(v.url || '')) {
+      const m = String(v.url).match(/instagram\.com\/(?:reel|reels|p)\/([\w-]+)/);
+      const src = m ? `https://www.instagram.com/reel/${m[1]}/embed` : '';
+      return `<figure class="vslot"><div class="vframe">${src ? `<iframe data-src="${esc(src)}" title="${esc(v.title || 'Видео в Instagram')}" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>` : ''}<a class="vlink" href="${esc(v.url)}" target="_blank" rel="noopener">Открыть в Instagram ↗</a></div>${cap}</figure>`;
+    }
+    return `<figure class="vslot"><div class="vframe"><video data-src="${esc(v.src)}" ${v.poster ? `poster="${esc(v.poster)}"` : ''} preload="none" playsinline muted loop controls></video></div>${cap}</figure>`;
+  }).join('');
+  // ленивая загрузка: src подставляем, когда слот почти на экране
+  const load = el => { if (el.dataset.src) { el.src = el.dataset.src; el.removeAttribute('data-src'); } };
+  const els = $$('[data-src]', grid);
+  if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { load(x.target); io.unobserve(x.target); } }), { rootMargin: '300px' }); els.forEach(el => io.observe(el)); }
+  else els.forEach(load);
+}
+
 /* ---------------- init ---------------- */
 function init() {
   fillStatic();
   try { heroFx(); } catch (e) { console.warn(e); }
   try { initPrograms(); } catch (e) { console.warn(e); }
+  try { renderStarter(); renderVideos(); } catch (e) { console.warn(e); }
   const form = $('#wzForm'); if (!form) return;
   form.addEventListener('click', onClick);
   form.addEventListener('input', onInput);

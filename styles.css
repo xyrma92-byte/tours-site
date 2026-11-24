@@ -416,3 +416,33 @@ input[type=range]{flex:1;accent-color:var(--coral);height:30px}
 .ai-route span{background:rgba(255,255,255,.08);border-radius:999px;padding:6px 10px;font-weight:700;font-size:.86rem}
 .ai-route b{color:var(--sun);font-weight:800;margin-left:2px}
 .ai-route i{font-style:normal;color:var(--lagoon)}
+
+/* ===== v5: «Освоиться во Вьетнаме» + видео ===== */
+.st-packs{max-width:860px}
+@media (min-width:720px){.packs.st-packs{grid-template-columns:1fr 1fr}}
+.st-label{margin:-6px 0 10px;font-size:.78rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:var(--coral)}
+.st-card .price b{font-size:1.9rem}
+.ticks li.st-all{font-weight:800}
+.starter-jump{margin-top:12px;width:100%;display:flex;align-items:center;gap:12px;text-align:left;border:1.5px dashed var(--lagoon);background:linear-gradient(135deg,#effcfc,#fff);border-radius:18px;padding:12px 14px;font:inherit;color:var(--ink);cursor:pointer}
+.starter-jump>span:first-child{font-size:1.6rem}
+.starter-jump b{display:block}
+.starter-jump small{display:block;color:var(--muted);line-height:1.35}
+.starter-jump i{margin-left:auto;font-style:normal;font-weight:800;color:var(--sea2);font-size:1.2rem}
+.starter-jump:hover{border-style:solid}
+.ai-check{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.ai-check li{background:rgba(255,255,255,.06);border-radius:12px;padding:8px 10px 8px 34px;position:relative;line-height:1.35}
+.ai-check li::before{content:'';position:absolute;left:10px;top:10px;width:14px;height:14px;border:2px solid var(--lagoon);border-radius:4px}
+.vgrid{display:grid;grid-auto-flow:column;grid-auto-columns:72%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px;scrollbar-width:none}
+.vgrid::-webkit-scrollbar{display:none}
+.vslot{margin:0;scroll-snap-align:start}
+.vframe,.vph{position:relative;aspect-ratio:9/16;border-radius:22px;overflow:hidden;background:#0c3b46;box-shadow:0 20px 40px -26px rgba(8,36,43,.8)}
+.vframe video,.vframe iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
+.vlink{position:absolute;left:10px;bottom:10px;background:rgba(4,38,60,.6);color:#fff;border-radius:999px;padding:6px 10px;font-size:.78rem;font-weight:700;text-decoration:none}
+.vslot figcaption{margin-top:8px;font-weight:700}
+.vph{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;padding:18px;color:#eafcfc;text-align:center;
+  background:radial-gradient(120% 70% at 50% 0%,rgba(43,209,181,.35),transparent 60%),linear-gradient(170deg,#11606f,#082a32)}
+.vph::before{content:'';position:absolute;inset:10px;border:1.5px dashed rgba(234,252,252,.28);border-radius:16px}
+.vph b{font-size:1.05rem}
+.vph small{color:#bfe5e7}
+.vplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.14);backdrop-filter:blur(4px);font-size:1.3rem;padding-left:4px}
+@media (min-width:720px){.vgrid{grid-auto-flow:row;grid-template-columns:repeat(3,minmax(0,280px));grid-auto-columns:auto;overflow:visible}}

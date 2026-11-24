@@ -15,13 +15,13 @@
 <link rel="preload" href="fonts/Unbounded.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" type="image/avif" imagesrcset="images/hero-m-800.avif 800w, images/hero-m-1200.avif 1200w" imagesizes="100vw" media="(max-width: 700px)">
 <link rel="preload" as="image" type="image/avif" imagesrcset="images/hero-960.avif 960w, images/hero-1600.avif 1600w, images/hero-2400.avif 2400w, images/hero-3200.avif 3200w" imagesizes="100vw" media="(min-width: 701px)">
-<link rel="stylesheet" href="styles.css?v=202611240550">
+<link rel="stylesheet" href="styles.css?v=202611240657">
 </head>
 <body>
 <header class="topbar" id="topbar">
   <a href="#top" class="logo"><span class="logo-mark" aria-hidden="true"><img src="favicon.svg" alt="" width="30" height="30"></span><span data-brand>Свои в Нячанге</span></a>
   <nav class="nav" aria-label="Разделы">
-    <a href="#how">Как это работает</a><a href="#packages">Пакеты и цены</a><a href="#programs">Программы</a><a href="#destinations">Направления</a><a href="#about">О нас</a><a href="#faq">Вопросы</a>
+    <a href="#how">Как это работает</a><a href="#packages">Пакеты и цены</a><a href="#programs">Программы</a><a href="#starter">Переезд</a><a href="#destinations">Направления</a><a href="#about">О нас</a><a href="#faq">Вопросы</a>
   </nav>
   <a class="btn primary sm hdr-cta" href="#plan">✨ Собрать поездку</a>
 </header>
@@ -151,6 +151,24 @@
   <h3 class="h3gap">Можно добавить к любому пакету</h3>
   <div class="addons" id="addonsList"></div>
   <p class="muted small">Цены — за нашу работу. Отели, аренда, билеты, госпошлины за визы и входные билеты оплачиваются отдельно, по факту и напрямую. <span data-group-note></span></p>
+</section>
+
+<!-- ============ ОСВОИТЬСЯ ВО ВЬЕТНАМЕ ============ -->
+<section class="section" id="starter">
+  <p class="kicker">Переезд и долгий срок</p>
+  <h2>Освоиться во Вьетнаме — без гайда и экскурсий</h2>
+  <p class="sec-lead" id="starterLead"></p>
+  <div class="packs st-packs" id="starterCards"></div>
+  <p class="muted small">Цены ориентировочные, за нашу работу. Госпошлина за визу, аренда жилья и байка, такси — отдельно, по факту. Можно взять отдельно или вместе с любым пакетом выше.</p>
+</section>
+
+<!-- ============ ВИДЕО ============ -->
+<section class="section soft" id="videos">
+  <p class="kicker">Видео</p>
+  <h2>Нячанг с нами</h2>
+  <p class="sec-lead">Короткие ролики из наших поездок: острова, байк, рынки и закаты — как это выглядит вживую.</p>
+  <div class="vgrid" id="videoGrid"></div>
+  <p class="muted small" id="videoNote" hidden>Мы монтируем свои ролики — скоро они появятся здесь. А пока загляните в Instagram: <a data-insta="instagram" href="https://instagram.com/niks.taran" target="_blank" rel="noopener">@niks.taran</a>.</p>
 </section>
 
 <!-- ============ ПРИМЕРЫ ПРОГРАММ ============ -->
@@ -322,8 +340,8 @@
   <a class="btn primary grow" href="#plan">✨ Собрать поездку</a>
 </div>
 
-<script src="config.js?v=202611240550"></script>
-<script src="programs.js?v=202611240550"></script>
-<script src="app.js?v=202611240550"></script>
+<script src="config.js?v=202611240657"></script>
+<script src="programs.js?v=202611240657"></script>
+<script src="app.js?v=202611240657"></script>
 </body>
 </html>
