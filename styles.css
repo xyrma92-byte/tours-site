@@ -446,3 +446,25 @@ input[type=range]{flex:1;accent-color:var(--coral);height:30px}
 .vph small{color:#bfe5e7}
 .vplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.14);backdrop-filter:blur(4px);font-size:1.3rem;padding-left:4px}
 @media (min-width:720px){.vgrid{grid-auto-flow:row;grid-template-columns:repeat(3,minmax(0,280px));grid-auto-columns:auto;overflow:visible}}
+
+/* ===== v6: карта наших мест ===== */
+.mapx{display:grid;gap:22px;margin-top:8px}
+.mapx-shots{display:grid;gap:14px;grid-template-columns:1fr 1fr;align-items:start}
+.bframe{margin:0;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 22px 44px -28px rgba(12,59,70,.55);position:relative;padding-top:22px}
+.bframe.big{grid-column:1/-1}
+.bframe img,.pframe img{display:block;width:100%;height:auto}
+.bdots{position:absolute;top:8px;left:12px;width:8px;height:8px;border-radius:50%;background:#ff6b5a;box-shadow:14px 0 0 #ffc24b,28px 0 0 #3fcf8e}
+.bframe::after{content:'';position:absolute;top:6px;left:56px;right:14px;height:11px;border-radius:999px;background:var(--sand2)}
+.pframes{display:flex;gap:10px;justify-content:center;align-items:flex-start}
+.pframe{margin:0;width:46%;max-width:180px;border:6px solid #12262b;border-radius:26px;overflow:hidden;background:#12262b;box-shadow:0 22px 40px -24px rgba(8,36,43,.8)}
+.pframe:nth-child(2){margin-top:22px}
+.mapx-txt .ticks li b{color:var(--ink)}
+.mapx-inc{margin:14px 0 4px;padding:12px 14px;border-radius:16px;background:linear-gradient(135deg,#fff6e3,#effcfc);border:1px dashed var(--coral);line-height:1.45}
+.mapx-h{margin:20px 0 10px;font-size:1.05rem}
+.favs{display:flex;flex-wrap:wrap;gap:8px}
+.favs span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-weight:700;font-size:.88rem}
+.ticks li.gift{font-weight:700}
+@media (min-width:900px){
+  .mapx{grid-template-columns:1.25fr 1fr;align-items:start}
+  .mapx-shots{position:relative}
+}

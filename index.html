@@ -15,13 +15,13 @@
 <link rel="preload" href="fonts/Unbounded.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" type="image/avif" imagesrcset="images/hero-m-800.avif 800w, images/hero-m-1200.avif 1200w" imagesizes="100vw" media="(max-width: 700px)">
 <link rel="preload" as="image" type="image/avif" imagesrcset="images/hero-960.avif 960w, images/hero-1600.avif 1600w, images/hero-2400.avif 2400w, images/hero-3200.avif 3200w" imagesizes="100vw" media="(min-width: 701px)">
-<link rel="stylesheet" href="styles.css?v=202611240657">
+<link rel="stylesheet" href="styles.css?v=202611280813">
 </head>
 <body>
 <header class="topbar" id="topbar">
   <a href="#top" class="logo"><span class="logo-mark" aria-hidden="true"><img src="favicon.svg" alt="" width="30" height="30"></span><span data-brand>Свои в Нячанге</span></a>
   <nav class="nav" aria-label="Разделы">
-    <a href="#how">Как это работает</a><a href="#packages">Пакеты и цены</a><a href="#programs">Программы</a><a href="#starter">Переезд</a><a href="#destinations">Направления</a><a href="#about">О нас</a><a href="#faq">Вопросы</a>
+    <a href="#how">Как это работает</a><a href="#packages">Пакеты и цены</a><a href="#map">Карта мест</a><a href="#programs">Программы</a><a href="#starter">Переезд</a><a href="#destinations">Направления</a><a href="#about">О нас</a><a href="#faq">Вопросы</a>
   </nav>
   <a class="btn primary sm hdr-cta" href="#plan">✨ Собрать поездку</a>
 </header>
@@ -102,6 +102,7 @@
         <li>Где жить, есть, купаться, что смотреть, сколько стоит</li>
         <li>Подборка жилья и аренды, инструкция по наличным и SIM</li>
         <li>Помощь с e-visa и чат с нами на время поездки</li>
+        <li class="gift">🎁 Доступ к нашей карте мест в Нячанге</li>
       </ul>
       <p class="pack-note">Поедете сами, но со всеми ответами в кармане.</p>
       <a class="btn ghost" href="#plan" data-pick="guide">Выбрать гайд</a>
@@ -111,7 +112,7 @@
       <div class="pack-top"><span class="pack-ico">📍</span><h3>С нами частично</h3><p class="pack-sub">Встречаем в нужных точках</p></div>
       <p class="price"><small>от</small> <b data-price="partial.from">$60</b> <small data-unit="partial">за день</small></p>
       <ul class="ticks">
-        <li>Всё из гайда +</li>
+        <li>Всё из гайда + 🎁 карта наших мест</li>
         <li>Встречаемся там, где нужна помощь: аэропорт, заселение, аренда, рынок, остров</li>
         <li>Привозим вас в локации и показываем на месте</li>
         <li>Остальное время вы свободны</li>
@@ -123,7 +124,7 @@
       <div class="pack-top"><span class="pack-ico">🧭</span><h3>С нами полностью</h3><p class="pack-sub">Целые дни вместе</p></div>
       <p class="price"><small>от</small> <b data-price="full.from">$120</b> <small data-unit="full">за день</small></p>
       <ul class="ticks">
-        <li>Всё из гайда +</li>
+        <li>Всё из гайда + 🎁 карта наших мест</li>
         <li>Проводим с вами весь день: от завтрака до ужина</li>
         <li>Решаем всё на ходу: транспорт, столики, кассы, переводы</li>
         <li>Подходит семьям с детьми и тем, кто впервые в Азии</li>
@@ -140,6 +141,7 @@
         <tr><td>Персональный план с адресами и маршрутами</td><td>✓</td><td>✓</td><td>✓</td></tr>
         <tr><td>Подборка жилья и аренды</td><td>✓</td><td>✓</td><td>✓</td></tr>
         <tr><td>Чат с нами во время поездки</td><td>✓</td><td>✓</td><td>✓</td></tr>
+        <tr><td>🎁 <a href="#map">Карта наших мест</a> в Нячанге</td><td>✓</td><td>✓</td><td>✓</td></tr>
         <tr><td>Встреча и помощь на месте</td><td>—</td><td>в выбранных точках</td><td>каждый день</td></tr>
         <tr><td>Проводим время вместе</td><td>—</td><td>3–5 ч</td><td>8–10 ч</td></tr>
         <tr><td>Решаем вопросы на ходу</td><td>онлайн</td><td>на месте</td><td>всё время</td></tr>
@@ -151,6 +153,37 @@
   <h3 class="h3gap">Можно добавить к любому пакету</h3>
   <div class="addons" id="addonsList"></div>
   <p class="muted small">Цены — за нашу работу. Отели, аренда, билеты, госпошлины за визы и входные билеты оплачиваются отдельно, по факту и напрямую. <span data-group-note></span></p>
+</section>
+
+<!-- ============ КАРТА НАШИХ МЕСТ ============ -->
+<section class="section" id="map">
+  <p class="kicker">🎁 В подарок к туру</p>
+  <h2>Карта наших мест в Нячанге</h2>
+  <p class="sec-lead">Всё, где мы бывали сами, собрано на одной карте по разделам. Стройте маршрут и катайтесь сами — не нужно спрашивать нас каждые 5 минут «а куда?». Мы советуем, а куда ехать — выбираете вы.</p>
+  <div class="mapx">
+    <div class="mapx-shots" aria-label="Скриншоты карты">
+      <figure class="bframe big"><i class="bdots" aria-hidden="true"></i><picture><source srcset="images/map-category.webp" type="image/webp"><img loading="lazy" src="images/map-category.jpg" width="1120" height="995" alt="Раздел «Кофейни»: все точки на карте и карточки мест"></picture></figure>
+      <figure class="bframe"><i class="bdots" aria-hidden="true"></i><picture><source srcset="images/map-routes.webp" type="image/webp"><img loading="lazy" src="images/map-routes.jpg" width="1120" height="594" alt="Шопинг: все точки на карте и маршрут по частям"></picture></figure>
+      <div class="pframes">
+        <figure class="pframe"><picture><source srcset="images/map-mobile-home.webp" type="image/webp"><img loading="lazy" src="images/map-mobile-home.jpg" width="600" height="1298" alt="Главная карты на телефоне"></picture></figure>
+        <figure class="pframe"><picture><source srcset="images/map-mobile-place.webp" type="image/webp"><img loading="lazy" src="images/map-mobile-place.jpg" width="600" height="1298" alt="Карточка места на телефоне: маршрут, звонок, часы, цены"></picture></figure>
+      </div>
+    </div>
+    <div class="mapx-txt">
+      <ul class="ticks">
+        <li><b>Больше 300 мест в 9 разделах:</b> еда, пляжи и острова, достопримечательности, СПА, ночная жизнь, спорт, шопинг, транспорт, банки</li>
+        <li><b>Маршрут по разделу в один клик</b> — открывается в Google Maps прямо с телефона</li>
+        <li><b>У каждого места:</b> адрес, часы, телефон, рейтинг Google и кнопка «Маршрут»</li>
+        <li><b>Отзывы</b> — можно оценивать места и делиться впечатлениями</li>
+      </ul>
+      <div class="mapx-inc"><b>Входит в пакеты:</b> «Соберём тур», «С нами частично», «С нами полностью» и «Старт+». Доступ даём после оплаты.</div>
+      <h3 class="mapx-h">Немного из наших любимых</h3>
+      <div class="favs">
+        <span>🛕 Башни По Нагар</span><span>🙏 Пагода Лонг Шон</span><span>🏝️ Остров Хон Там</span><span>🏖️ Пляж Доклет</span><span>💦 Водопады Ба Хо</span><span>🧖 Грязи Тхап Ба</span><span>🥩 Гриль Lạc Cảnh</span><span>☕ Góc Của Mây</span>
+      </div>
+      <p class="muted small">…и ещё сотни мест на карте — с адресами и маршрутами.</p>
+    </div>
+  </div>
 </section>
 
 <!-- ============ ОСВОИТЬСЯ ВО ВЬЕТНАМЕ ============ -->
@@ -305,6 +338,7 @@
   <h2>Частые вопросы</h2>
   <div class="faq">
     <details><summary>Вы гиды? Проводите экскурсии?</summary><p>Нет. Мы компаньоны и консультанты: помогаем с логистикой, бронями, арендой и бытом, показываем город так, как показали бы друзья. Если нужна экскурсия с лицензированным гидом (например, по Ангкору), поможем найти и забронировать местного гида.</p></details>
+    <details><summary>Что за карта мест и можно ли получить её без тура?</summary><p>Это наш отдельный сайт-карта: больше 300 проверенных мест по разделам, с адресами, часами, рейтингами и маршрутами в Google Maps. Доступ даём в подарок к пакетам «Соберём тур», «С нами частично», «С нами полностью» и «Старт+» — после оплаты. Отдельно карту пока не продаём.</p></details>
     <details><summary>Чем гайд отличается от сопровождения?</summary><p>Гайд — это персональный план поездки с адресами, ссылками на карты, маршрутами и ценами, а также чат с нами во время поездки. При сопровождении мы встречаемся с вами вживую: частично — только в нужных точках, полностью — проводим вместе целые дни.</p></details>
     <details><summary>Когда и как платить?</summary><p>После анкеты ничего платить не нужно. Сначала согласуем программу и точную цену. Гайд оплачивается после согласования (<span data-guidepp>100</span>%), за сопровождение — предоплата <span data-tourpp>30</span>% за бронь дат, остаток на месте. Способы оплаты обсудим лично.</p></details>
     <details><summary>Вы бронируете отели за свой счёт и перепродаёте?</summary><p>Нет. Мы находим и помогаем забронировать, но платите вы напрямую отелю, агрегатору или арендодателю. Так прозрачнее и без наценок.</p></details>
@@ -340,8 +374,8 @@
   <a class="btn primary grow" href="#plan">✨ Собрать поездку</a>
 </div>
 
-<script src="config.js?v=202611240657"></script>
-<script src="programs.js?v=202611240657"></script>
-<script src="app.js?v=202611240657"></script>
+<script src="config.js?v=202611280813"></script>
+<script src="programs.js?v=202611280813"></script>
+<script src="app.js?v=202611280813"></script>
 </body>
 </html>
